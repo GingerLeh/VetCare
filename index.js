@@ -1,15 +1,15 @@
 //importações
 import http from "http";
 import express from "express";
-import rotaCliente from "./rotas/rotaClientes.js";
+import rotaFuncionario from "./rotas/rotaFuncionario.js";
 
 const hostname = "localhost";
 const porta = 3000;
 
 const app = express();
 
-//Rota Clientes - Junior
-app.use('/clientes', rotaCliente);
+//Rota Funcionarios - Junior
+app.use('/funcionario',rotaFuncionario);
 
 const servidor = http.createServer(app);
 
