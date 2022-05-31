@@ -64,7 +64,9 @@ function adicionarProduto() {
 }
 
 function exibirTabelaProdutos() {
-    fetch('http://localhost:3000/produtos', { method: "GET" }).then((resposta) => {
+    fetch('http://localhost:3000/produtos', {
+        method: 'GET'
+    }).then((resposta) => {
         if (resposta.ok) {
             return resposta.json();
         }
@@ -122,7 +124,7 @@ function exibirTabelaProdutos() {
 
 function excluirProduto(id) {
     fetch('http://localhost:3000/produtos/' + id, {
-        method: "DELETE"
+        method: 'DELETE'
     }).then((resposta) => {
         if (resposta.ok) {
             return resposta.json();
@@ -132,9 +134,9 @@ function excluirProduto(id) {
             elementoMensagem.innerHTML = "<p>Não foi possível excluir o Produto.</p>";
         }
     }).then((retorno) => {
-        if (retorno.status) {
-            exibirTabelaProdutos();
-        }
+        elementoMensagem.className = " m-3 alert alert-warning";
+        elementoMensagem.innerHTML = "<p>Produto escluído com sucesso!</p>";
+        exibirTabelaProdutos();
     }).catch((erro) => {
         elementoMensagem.className = " m-3 alert alert-warning";
         elementoMensagem.innerHTML = "<p>" + erro.message + "</p>";

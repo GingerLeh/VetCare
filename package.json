@@ -11,6 +11,7 @@
   "author": "Alessa, Flávia, Junior e Vanessa",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.1",
     "mongodb": "^4.6.0"
   }
