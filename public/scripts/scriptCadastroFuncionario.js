@@ -1,19 +1,33 @@
 var elementoMensagem = document.querySelector('[data-Mensagem]');
 var botaoAdicionar = document.getElementById("botaoAdicionar");
 
-botaoAdicionar.onclick = adicionarProduto;
-exibirTabelaProdutos();
+botaoAdicionar.onclick = adicionarFuncionario;
+exibirTabelaFuncionarios();
 
 function dadosValidos() {
-    const descricao = document.getElementById("descricao").value;
-    const categoria = document.getElementById("categoria").value;
-    const dataValidade = document.getElementById("dataValidade").value;
-    const custoUnitario = document.getElementById("custoUnitario").value;
-    const margemLucro = document.getElementById("margemLucro").value;
-    const vendaControlada = document.getElementById("vendaControlada").value;
+    const nome = document.getElementById("nome").value;
+    const rg = document.getElementById("rg").value;
+    const cpf = document.getElementById("cpf").value;
+    const dtNasc = document.getElementById("dtNasc").value;
+    const endereco = document.getElementById("endereco").value;
+    const numero = document.getElementById("numero").value;
+    const complemento = document.getElementById("complemento").value;
+    const bairro = document.getElementById("bairro").value;
+    const cep = document.getElementById("cep").value;
+    const cidade = document.getElementById("cidade").value;
+    const estado = document.getElementById("estado").value;
+    const contato = document.getElementById("contato").value;
+    const email = document.getElementById("email").value;
+    const periodo = document.getElementById("periodo").value;
+    const regimeTrab = document.getElementById("regimeTrab").value;
+    const flagVet = document.getElementById("flagVet").value;
+    const crmv = document.getElementById("crmv").value;
+    const especialidade = document.getElementById("especialidade").value;
+
 
     //pseudo validação
-    if (descricao && categoria && dataValidade && custoUnitario && margemLucro)
+    if (nome && rg && cpf && dtNasc && endereco && numero && bairro && cep && cidade && estado &&
+        contato && email && periodo && regimeTrab)
         return true;
     else
         return false;

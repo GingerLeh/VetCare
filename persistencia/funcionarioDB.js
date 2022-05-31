@@ -36,8 +36,7 @@ export default class FuncionarioDB{
                     "regimeTrab": funcionario.regimeTrab,
                     "flagVet": funcionario.flagVet,
                     "crmv": funcionario.crmv,
-                    "especialidade": funcionario.especialidade,
-                    "calendario":funcionario.calendario
+                    "especialidade": funcionario.especialidade
                 });
                 funcionario.id = resultado.insertedId.toString();
     
@@ -75,8 +74,7 @@ export default class FuncionarioDB{
                     "regimeTrab": funcionario.regimeTrab,
                     "flagVet": funcionario.flagVet,
                     "crmv": funcionario.crmv,
-                    "especialidade": funcionario.especialidade,
-                    "calendario":funcionario.calendario
+                    "especialidade": funcionario.especialidade
                     }
                 });
                 if (resultado.modifiedCount > 0){
@@ -152,8 +150,7 @@ export default class FuncionarioDB{
                 resultado.regimeTrab,
                 resultado.flagVet,
                 resultado.crmv,
-                resultado.especialidade,
-                resultado.calendario);
+                resultado.especialidade);
                 return funcionarioEncontrado;
             }
             
@@ -193,8 +190,7 @@ export default class FuncionarioDB{
                         elemento.regimeTrab,
                         elemento.flagVet,
                         elemento.crmv,
-                        elemento.especialidade,
-                        elemento.calendario
+                        elemento.especialidade
                     )
                     listaFuncionario.push(funcionario)
                 });

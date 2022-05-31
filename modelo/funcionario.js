@@ -21,9 +21,9 @@ export default class Funcionario{
     #flagVet;
     #crmv;
     #especialidade;
-    #calendario;
 
-    constructor(id, nome, rg, cpf, dtNasc, endereco, numero, complemento, bairro, cep, cidade, estado, contato,email,periodo,regimeTrab,flagVet,crmv,especialidade,calendario){
+
+    constructor(id, nome, rg, cpf, dtNasc, endereco, numero, complemento, bairro, cep, cidade, estado, contato,email,periodo,regimeTrab,flagVet,crmv,especialidade){
         this.#id = id;
         this.#nome = nome;
         this.#rg = rg;
@@ -43,7 +43,6 @@ export default class Funcionario{
         this.#flagVet = flagVet;
         this.#crmv = crmv;
         this.#especialidade = especialidade;
-        this.#calendario = calendario;
     }
 
     //métodos get e set
@@ -186,12 +185,7 @@ export default class Funcionario{
     set especialidade(novoEspecialidade) {
         this.#especialidade = novoEspecialidade;
     }
-    get calendario() {
-        return this.#calendario;
-    }
-    set calendario(novoCalendario) {
-        this.#calendario = novoCalendario;
-    }
+
     
 
     toJSON () {
@@ -214,8 +208,7 @@ export default class Funcionario{
             "regimeTrab": this.#regimeTrab,
             "flagVet": this.#flagVet,
             "crmv": this.#crmv,
-            "especialidade": this.#especialidade,
-            "calendario":this.#calendario
+            "especialidade": this.#especialidade
         }
     }
 }
