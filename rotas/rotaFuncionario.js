@@ -40,7 +40,7 @@ rotaFuncionario.route('/:id?')
         if (dados.nome && dados.rg && dados.cpf && dados.contato){
             const funcionario = new Funcionario(0, dados.nome, dados.rg, dados.cpf, dados.dtNasc, dados.endereco,
                 dados.numero, dados.complemento, dados.bairro, dados.cep, dados.cidade, dados.estado,
-                dados.contato,dados.email,dados.periodo,dados.regimeTrab,dados.flagVet,dados.crmv,dados.especialidade,dados.calendario); 
+                dados.contato,dados.email,dados.periodo,dados.regimeTrab,dados.flagVet,dados.crmv,dados.especialidade); 
             funcionarioDB.incluir(funcionario).then(() => {
                 resp.statusCode = 200;
                 resp.setHeader("Content-Type", "application/json");
@@ -66,7 +66,7 @@ rotaFuncionario.route('/:id?')
         if (dados.nome && dados.rg && dados.cpf && dados.contato){
             const funcionario = new Funcionario(req.params.id, dados.nome, dados.rg, dados.cpf, dados.dtNasc,
                 dados.endereco, dados.numero, dados.complemento, dados.bairro, dados.cep, dados.cidade,
-                dados.estado,dados.contato,dados.email,dados.periodo,dados.regimeTrab,dados.flagVet,dados.crmv,dados.especialidade,dados.calendario);
+                dados.estado,dados.contato,dados.email,dados.periodo,dados.regimeTrab,dados.flagVet,dados.crmv,dados.especialidade);
             funcionarioDB.atualizar(funcionario).then((resultado) => {
                 resp.statusCode = 200;
                 resp.setHeader("Content-Type", "application/json");
