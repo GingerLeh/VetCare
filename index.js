@@ -3,6 +3,7 @@ import http from "http";
 import express from "express";
 import rotaProduto from "./rotas/rotaProdutos.js";
 import cors from 'cors';
+import rotaFuncionario from "./rotas/rotaFuncionario.js";
 
 const hostname = "localhost";
 const porta = 3000;
@@ -18,6 +19,8 @@ app.use(cors({
 
 //Rota Produtos - Flavia
 app.use('/produtos', rotaProduto);
+//Rota Funcionarios - Alessa
+app.use('/funcionario',rotaFuncionario);
 
 const servidor = http.createServer(app);
 
