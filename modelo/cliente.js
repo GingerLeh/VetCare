@@ -15,8 +15,9 @@ export default class Cliente{
     #cidade;
     #estado;
     #contato;
+    #pets;
 
-    constructor(id, nome, rg, cpf, dtNasc, endereco, numero, complemento, bairro, cep, cidade, estado, contato){
+    constructor(id, nome, rg, cpf, dtNasc, endereco, numero, complemento, bairro, cep, cidade, estado, contato, pets){
         this.#id = id;
         this.#nome = nome;
         this.#rg = rg;
@@ -30,6 +31,7 @@ export default class Cliente{
         this.#cidade = cidade;
         this.#estado = estado;
         this.#contato = contato;
+        this.#pets = pets;
     }
 
     //métodos get e set
@@ -137,6 +139,14 @@ export default class Cliente{
         this.#contato = novoContato;
     }
 
+    get pets(){
+        return this.#pets;
+    }
+
+    set pets(listaPets){
+        this.#pets = listaPets;
+    }
+
     toJSON () {
         return {
             "id": this.#id,
@@ -151,7 +161,9 @@ export default class Cliente{
             "cep" : this.#cep,
             "cidade" : this.#cidade,
             "estado" : this.#estado,
-            "contato": this.#contato
+            "contato": this.#contato,
+            "pets": this.#pets.map((pet) => pet.toJSON())
+            
         }
     }
 }

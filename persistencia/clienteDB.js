@@ -1,5 +1,6 @@
 import {MongoClient, ObjectId} from 'mongodb';
 import Cliente from '../modelo/cliente.js';
+import Pet from '../modelo/Pet.js';
 
 const urlBancoDados = "mongodb://localhost:27017";
 const baseDados = "VetCare";
@@ -141,7 +142,12 @@ export default class ClienteDB{
             const resultado = await cursor.toArray();
             let listaCliente = [];
             if (resultado){
-                resultado.forEach((elemento) => {
+                //resultado.forEach((elemento) => { não adequado para chamada assíncrona
+                for (const elemento of resultado){
+                    const documentosPets = await this.clienteMongo.db(baseDados).collection("Pets").find({"codProprietario":elemento._id.toString()}).toArray();
+                    let listaPets = documentosPets.map((docPet) => {
+                        return new Pet(docPet._id.toString(), docPet.nome, docPet.raca, docPet.peso, docPet.dataNascimento, docPet.porte, docPet.codProprietario);
+                    });
                     const cliente = new Cliente(
                         elemento._id,
                         elemento.nome,
@@ -155,10 +161,11 @@ export default class ClienteDB{
                         elemento.cep,
                         elemento.cidade,
                         elemento.estado,
-                        elemento.contato
-                    )
-                    listaCliente.push(cliente)
-                });
+                        elemento.contato, 
+                        listaPets);
+
+                    listaCliente.push(cliente);
+                };
             }
             return listaCliente;
 
