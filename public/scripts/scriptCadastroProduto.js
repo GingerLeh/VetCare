@@ -135,7 +135,7 @@ function excluirProduto(id) {
         }
     }).then((retorno) => {
         elementoMensagem.className = " m-3 alert alert-warning";
-        elementoMensagem.innerHTML = "<p>Produto escluído com sucesso!</p>";
+        elementoMensagem.innerHTML = "<p>Produto excluído com sucesso!</p>";
         exibirTabelaProdutos();
     }).catch((erro) => {
         elementoMensagem.className = " m-3 alert alert-warning";

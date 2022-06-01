@@ -89,7 +89,7 @@ function adicionarFuncionario() {
         }).then((dados) => { //recebendo a resposta.json
             elementoMensagem.className = " m-3 alert alert-warning";
             elementoMensagem.innerHTML = "<p>" + dados.status + " - Gerado o id " + dados.id + "</p>";
-            exibirTabelaProdutos();
+            exibirTabelaFuncionarios();
         }).catch((erro) => { //fim da chamada fetch. Nesse caso, ocorre um erro fora do alcance do programador.
             elementoMensagem.className = " m-3 alert alert-danger";
             elementoMensagem.innerHTML = "<p>" + "Problema de comunicação com o servidor (" + erro.message + ")</p>";
@@ -111,7 +111,7 @@ function exibirTabelaFuncionarios() {
     }).then((funcionarios) => {
         elementoVisualizacaoTabela = document.querySelector('[data-Tabela]');
         elementoVisualizacaoTabela.innerHTML = " ";
-        if (produtos.length == 0)
+        if (funcionarios.length == 0)
             elementoVisualizacaoTabela.innerHTML = "<p>Não há funcionários cadastrados!</p>";
         else {
             let tabela = document.createElement('table');
@@ -196,7 +196,7 @@ function excluirFuncionario(id) {
         }
     }).then((retorno) => {
         elementoMensagem.className = " m-3 alert alert-warning";
-        elementoMensagem.innerHTML = "<p>Funcionário escluído com sucesso!</p>";
+        elementoMensagem.innerHTML = "<p>Funcionário excluído com sucesso!</p>";
         exibirTabelaFuncionarios();
     }).catch((erro) => {
         elementoMensagem.className = " m-3 alert alert-warning";
