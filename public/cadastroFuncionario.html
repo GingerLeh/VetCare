@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Cadastro de Produtos</title>
+    <title>Cadastro de Funcionarios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -12,12 +12,12 @@
     <div class="container p-4 mt-4 border">
         <form class="form-floating">
             <fieldset>
-                <legend>Cadastro de Produtos:</legend>
+                <legend>Cadastro de Funcionários:</legend>
                 <div class="row">
                     <div class="col-3">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="codigo" name="codigo" disabled>
-                            <label for="codigo">Código / EAN</label>
+                            <label for="codigo">ID</label>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                     <div class="col">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="descricao" name="descricao">
-                            <label for="descricao">Descricao:</label>
+                            <label for="descricao">Nome:</label>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,15 @@
                     <div class="col">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="categoria" name="categoria">
-                            <label for="categoria">Categoria</label>
+                            <label for="categoria">RG</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="categoria" name="categoria">
+                            <label for="categoria">CPF</label>
                         </div>
                     </div>
                 </div>
@@ -41,7 +49,7 @@
                     <div class="col-5">
                         <div class="form-floating mb-3">
                             <input type="date" class="form-control" id="dataValidade" name="dataValidade">
-                            <label for="dataValidade">Validade do Produto:</label>
+                            <label for="dataValidade">Data de Nascimento:</label>
                         </div>
                     </div>
                 </div>
@@ -49,15 +57,87 @@
                     <div class="col-5">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="custoUnitario" name="custoUnitario">
-                            <label for="custoUnitario">Custo Unitário:</label>
+                            <label for="custoUnitario">Endereço:</label>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-5">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="margemLucro" name="margemLucro">
-                            <label for="margemLucro">Margem de Lucro:</label>
+                            <input type="number" class="form-control" id="margemLucro" name="margemLucro">
+                            <label for="margemLucro">Número:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="custoUnitario" name="custoUnitario">
+                            <label for="custoUnitario">Complemento:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="custoUnitario" name="custoUnitario">
+                            <label for="custoUnitario">Bairro:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="custoUnitario" name="custoUnitario">
+                            <label for="custoUnitario">CEP:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="custoUnitario" name="custoUnitario">
+                            <label for="custoUnitario">Cidade:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="custoUnitario" name="custoUnitario">
+                            <label for="custoUnitario">Estado:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="custoUnitario" name="custoUnitario">
+                            <label for="custoUnitario">Contato:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="custoUnitario" name="custoUnitario">
+                            <label for="custoUnitario">E-mail:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="custoUnitario" name="custoUnitario">
+                            <label for="custoUnitario">Período:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="custoUnitario" name="custoUnitario">
+                            <label for="custoUnitario">Regime de Trabalho:</label>
                         </div>
                     </div>
                 </div>
@@ -65,7 +145,23 @@
                     <div class="col-5">
                         <div class="form-floating mb-3">
                             <input type="checkbox" id="vendaControlada" name="vendaControlada" value="sim">
-                            <label for="vendaControlada">Venda Controlada?</label>
+                            <label for="vendaControlada">Veterinário?</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="custoUnitario" name="custoUnitario">
+                            <label for="custoUnitario">CRMV:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="custoUnitario" name="custoUnitario">
+                            <label for="custoUnitario">Especialidade:</label>
                         </div>
                     </div>
                 </div>
@@ -91,6 +187,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
-<script src="./scripts/scriptCadastroProduto.js"></script>
+<script src="./scripts/scriptCadastroFuncionario.js"></script>
 
 </html>

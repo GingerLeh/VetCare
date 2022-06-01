@@ -21,7 +21,7 @@ app.use(cors({
 //Rota Produtos - Flavia
 app.use('/produtos', rotaProduto);
 //Rota Funcionarios - Alessa
-app.use('/funcionario',rotaFuncionario);
+app.use('/funcionarios',rotaFuncionario);
 //Rota Clientes - Junior
 app.use('/clientes', rotaCliente);
 
