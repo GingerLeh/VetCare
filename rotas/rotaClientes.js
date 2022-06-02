@@ -40,7 +40,7 @@ rotaCliente.route('/:id?')
         if (dados.nome && dados.rg && dados.cpf && dados.contato){
             const cliente = new Cliente(0, dados.nome, dados.rg, dados.cpf, dados.dtNasc, dados.endereco,
                 dados.numero, dados.complemento, dados.bairro, dados.cep, dados.cidade, dados.estado,
-                dados.contato); 
+                dados.contato, dados.email, dados.observacao, []); 
             clienteDB.incluir(cliente).then(() => {
                 resp.statusCode = 200;
                 resp.setHeader("Content-Type", "application/json");
@@ -66,7 +66,7 @@ rotaCliente.route('/:id?')
         if (dados.nome && dados.rg && dados.cpf && dados.contato){
             const cliente = new Cliente(req.params.id, dados.nome, dados.rg, dados.cpf, dados.dtNasc,
                 dados.endereco, dados.numero, dados.complemento, dados.bairro, dados.cep, dados.cidade,
-                dados.estado, dados.contato);
+                dados.estado, dados.contato, dados.email, dados.obsevacao, []);
             clienteDB.atualizar(cliente).then((resultado) => {
                 resp.statusCode = 200;
                 resp.setHeader("Content-Type", "application/json");
@@ -94,7 +94,7 @@ rotaCliente.route('/:id?')
 .delete((req, resp) => {
     if (req.params.id){
         const cliente = new Cliente(req.params.id, "", "", "", "", "",
-        "", "", "", "", "", "", "");
+        "", "", "", "", "", "", "", "", "", []);
         clienteDB.excluir(cliente).then((resultado) => {
             resp.statusCode = 200;
             resp.setHeader("Content-Type","application/json");

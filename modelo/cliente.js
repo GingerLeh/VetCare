@@ -7,29 +7,35 @@ export default class Cliente{
     #rg;
     #cpf;
     #dtNasc;
+    #cep;
     #endereco;
     #numero;
     #complemento;
     #bairro;
-    #cep;
     #cidade;
     #estado;
     #contato;
+    #email;
+    #observacao;
+    #pets;
 
-    constructor(id, nome, rg, cpf, dtNasc, endereco, numero, complemento, bairro, cep, cidade, estado, contato){
+    constructor(id, nome, rg, cpf, dtNasc, cep, endereco, numero, complemento, bairro, cidade, estado, contato, email, observacao, pets){
         this.#id = id;
         this.#nome = nome;
         this.#rg = rg;
         this.#cpf = cpf;
         this.#dtNasc = dtNasc;
+        this.#cep = cep;
         this.#endereco = endereco;
         this.#numero = numero;
         this.#complemento = complemento;
         this.#bairro = bairro;
-        this.#cep = cep;
         this.#cidade = cidade;
         this.#estado = estado;
         this.#contato = contato;
+        this.#email = email;
+        this.#observacao = observacao;
+        this.#pets = pets;
     }
 
     //métodos get e set
@@ -105,7 +111,7 @@ export default class Cliente{
         this.#bairro = novoBairro;
     }
 
-    get cep (){
+    get cep(){
         return this.#cep;
     }
 
@@ -137,6 +143,30 @@ export default class Cliente{
         this.#contato = novoContato;
     }
 
+    get email(){
+        return this.#email;
+    }
+
+    set email(novoEmail){
+        this.#email = novoEmail;
+    }
+
+    get observacao(){
+        return this.#observacao;
+    }
+
+    set observacao(novaObs){
+        this.#observacao = novaObs;
+    }
+
+    get pets(){
+        return this.#pets;
+    }
+
+    set pets(novaListaPets){
+        this.#pets = novaListaPets;
+    }
+
     toJSON () {
         return {
             "id": this.#id,
@@ -144,14 +174,17 @@ export default class Cliente{
             "rg" : this.#rg,
             "cpf" : this.#cpf,
             "dtNasc": this.#dtNasc,
+            "cep" : this.#cep,
             "endereco" : this.#endereco,
             "numero" : this.#numero,
             "complemento" : this.#complemento,
             "bairro" : this.#bairro,
-            "cep" : this.#cep,
             "cidade" : this.#cidade,
             "estado" : this.#estado,
-            "contato": this.#contato
+            "contato": this.#contato,
+            "email": this.#email,
+            "observacao": this.observacao,
+            "pets": this.#pets.map((pet) => {return pet.toJSON()})
         }
     }
 }
