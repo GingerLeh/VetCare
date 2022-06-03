@@ -5,6 +5,7 @@ import rotaProduto from "./rotas/rotaProdutos.js";
 import cors from 'cors';
 import rotaFuncionario from "./rotas/rotaFuncionario.js";
 import rotaCliente from "./rotas/rotaClientes.js";
+import rotaPet from "./rotas/rotaPets.js";
 
 const hostname = "localhost";
 const porta = 3000;
@@ -18,6 +19,8 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE"]
 }));
 
+//Rota Pet - Vanessa
+app.use('/pets', rotaPet);
 //Rota Produtos - Flavia
 app.use('/produtos', rotaProduto);
 //Rota Funcionarios - Alessa
