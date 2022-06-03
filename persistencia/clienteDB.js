@@ -1,6 +1,6 @@
 import {MongoClient, ObjectId} from 'mongodb';
 import Cliente from '../modelo/cliente.js';
-
+//import Pet from '../modelo/pet.js';
 const urlBancoDados = "mongodb://localhost:27017";
 const baseDados = "VetCare";
 const colecao = "Clientes";
@@ -23,14 +23,16 @@ export default class ClienteDB{
                     "rg":cliente.rg,
                     "cpf":cliente.cpf,
                     "dtNasc":cliente.dtNasc,
+                    "cep":cliente.cep,
                     "endereco":cliente.endereco,
                     "numero":cliente.numero,
                     "complemento":cliente.complemento,
                     "bairro":cliente.bairro,
-                    "cep":cliente.cep,
                     "cidade":cliente.cidade,
                     "estado":cliente.estado,
-                    "contato":cliente.contato
+                    "contato":cliente.contato,
+                    "email":cliente.email,
+                    "observacao":cliente.observacao
                 });
                 cliente.id = resultado.insertedId.toString();
     
@@ -55,14 +57,16 @@ export default class ClienteDB{
                         "rg":cliente.rg,
                         "cpf":cliente.cpf,
                         "dtNasc":cliente.dtNasc,
+                        "cep":cliente.cep,
                         "endereco":cliente.endereco,
                         "numero":cliente.numero,
                         "complemento":cliente.complemento,
                         "bairro":cliente.bairro,
-                        "cep":cliente.cep,
                         "cidade":cliente.cidade,
                         "estado":cliente.estado,
-                        "contato":cliente.contato
+                        "contato":cliente.contato,
+                        "email":cliente.email,
+                        "observacao":cliente.observacao
                     }
                 });
                 if (resultado.modifiedCount > 0){
@@ -119,9 +123,31 @@ export default class ClienteDB{
             const resultado = await this.clienteMongo.db(baseDados).collection(colecao)
             .findOne({"_id":identificador});
             if (resultado){
-                const clienteEncontrado = new Cliente(resultado._id, resultado.nome, resultado.rg, resultado.cpf,
-                        resultado.dtNasc, resultado.endereco, resultado.numero, resultado.complemento, resultado.bairro,
-                        resultado.cep, resultado.cidade, resultado.estado, resultado.contato);
+                const docPets = await this.clienteMongo.db(baseDados).collection("Pets").
+                find({"codProprietario":resultado._id.toString()}).toArray();
+                let listaPets = docPets.map((docPet) => {
+                    return new Pet(docPet._id.toString(),
+                                    docPet.nome,
+                                    docPet.especie,
+                                    docPet.cor,
+                                    docPet.codProprietario);
+                });
+                const clienteEncontrado = new Cliente(resultado._id,
+                                    resultado.nome,
+                                    resultado.rg,
+                                    resultado.cpf,
+                                    resultado.dtNasc,
+                                    resultado.cep,
+                                    resultado.endereco,
+                                    resultado.numero,
+                                    resultado.complemento,
+                                    resultado.bairro,
+                                    resultado.cidade,
+                                    resultado.estado,
+                                    resultado.contato,
+                                    resultado.email,
+                                    resultado.observacao,
+                                    listaPets);
                 return clienteEncontrado;
             }
             
@@ -141,24 +167,36 @@ export default class ClienteDB{
             const resultado = await cursor.toArray();
             let listaCliente = [];
             if (resultado){
-                resultado.forEach((elemento) => {
+                for (const elemento of resultado){
+                    const docPets = await this.clienteMongo.db(baseDados).collection("Pets").
+                    find({'codProprietario':elemento._id.toString()}).toArray();
+                    let listaPets = docPets.map((pet) => {
+                        return new Pet(pet._id.toString(),
+                                       pet.nome,
+                                       pet.especie,
+                                       pet.cor,
+                                       pet.codProprietario);
+                    });
                     const cliente = new Cliente(
                         elemento._id,
                         elemento.nome,
                         elemento.rg,
                         elemento.cpf,
                         elemento.dtNasc,
+                        elemento.cep,
                         elemento.endereco,
                         elemento.numero,
                         elemento.complemento,
                         elemento.bairro,
-                        elemento.cep,
                         elemento.cidade,
                         elemento.estado,
-                        elemento.contato
+                        elemento.contato,
+                        elemento.email,
+                        elemento.observacao,
+                        listaPets
                     )
                     listaCliente.push(cliente)
-                });
+                }
             }
             return listaCliente;
 
