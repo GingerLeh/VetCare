@@ -80,7 +80,6 @@ i {
     display: block;
 }
 
-
 /* Change color on hover */
 .sidenav a:hover {
     background-color: #ddd;
@@ -90,4 +89,8 @@ i {
 /* Style the content */
 .content {
     text-align: center;
+}
+
+.footer {
+    background-color: #849385;
 }
