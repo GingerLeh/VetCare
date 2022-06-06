@@ -3,7 +3,7 @@ var botaoGravar = document.getElementById('botaoGravar');
 var botaoAtualizar = document.getElementById('botaoAtualizar');
 var botaoCancelar = document.getElementById('botaoCancelar');
 
-
+//Controle ddo botão cancelar.
 botaoCancelar.addEventListener('click', ()=>{
     botaoAtualizar.disabled=true;
     botaoGravar.disabled=false;
@@ -20,8 +20,7 @@ function dadosValidos(){
     const cpf = document.getElementById('cpf').value;
     const contato = document.getElementById('contato').value;
 
-    if (nome && cpf && contato){
-        
+    if (nome && cpf && contato){    
         return true;
     }
     else {
@@ -57,8 +56,8 @@ function gravarCliente(){
             "bairro":bairro,
             "cidade":cidade,
             "estado":estado,
-            "contato":contato,
             "email":email,
+            "contato":contato,
             "observacao":observacao
         }
         //realizando a chamada assíncrona
@@ -71,21 +70,24 @@ function gravarCliente(){
                 return resposta.json();
             }
             else {
+                elementoMensagem.innerHTML="";
                 elementoMensagem.className="m-3 alert alert-warning";
                 elementoMensagem.innerHTML="<p>Não foi possível processar uma resposta do servidor!</p>";
             }
         }).then((dados) => {
-            document.getElementById('id').value=dados.id;
+            elementoMensagem.innerHTML="";
             elementoMensagem.className="m-3 alert alert-success";
-            elementoMensagem.innerHTML="<p>"+ dados.status + " - id gerado: " + dados.id + "</p>";
-            exibirTabelaClientes(); //exibimos novamente a tabela atualizada.
+            elementoMensagem.innerHTML="<p>Cliente incluído com sucesso - id gerado: " + dados.id + "!</p>"
+            limparMensagem();
+            exibirTabelaClientes();
         }).catch((erro) => {
+            elementoMensagem.innerHTML="";
             elementoMensagem.className="m-3 alert alert-danger";
             elementoMensagem.innerHTML="<p> Problemas de comunicação com o servidor. ( " + erro.message +" )</p>";
-
         });
     }
     else {
+        elementoMensagem.innerHTML="";
         elementoMensagem.className="m-3 alert alert-warning";
         elementoMensagem.innerHTML="<p>Por favor, informe corretamente os dados do cliente.</p>";
     }
@@ -157,18 +159,25 @@ function exibirTabelaClientes(){
 function estilizacaoExibicaoPets(listaPets){
     let divDropdown = document.createElement("div");
     divDropdown.className="btn-group"; //classe do bootstrap 5
-    divDropdown.innerHTML='<button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"\
+    divDropdown.innerHTML='<button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"\
      aria-expanded="false">Pets</button>';
     let lista = document.createElement('ul');
     lista.className="dropdown-menu";
+    let contadorDePet = 0;
     for (const pet of listaPets){
+        contadorDePet +=1;
         let itemLista = document.createElement('li');
-        itemLista.innerHTML='<a class="dropdowm-item" href="#">' + pet.nome + " -> " + pet.especie + '</a>';
+        itemLista.innerHTML='<a class="dropdowm-item" href="#" >' + pet.nome + '</a>';
         lista.appendChild(itemLista);
     }
-    let butAdd = document.createElement('button');
-    butAdd.innerText="+ Pet";    
-    lista.appendChild(butAdd);
+    if (contadorDePet <= listaPets.length){
+        let itemLista1 = document.createElement('li');
+        itemLista1.innerHTML='<hr class="dropdown-divider">';
+        lista.appendChild(itemLista1);
+        let itemLista2 = document.createElement('li');
+        itemLista2.innerHTML='<a href="#">Cadastrar</a>';
+        lista.appendChild(itemLista2);
+    }
     divDropdown.appendChild(lista);
     return divDropdown;
 }
@@ -186,9 +195,12 @@ function alterarTelaPut(id){
             elementoMensagem.innerHTML="<p>Registro não encontrado!</p>";
         }
     }).then((cliente) => {
-
-        for (const [chave, valor] of cliente){
-            document.getElementById(chave).value=valor;
+        const chaves = Object.keys(cliente);
+        const valores = Object.values(cliente);
+        for (let i = 0; i < chaves.length; i++) {
+            if (chaves[i] != "pets"){
+                document.getElementById(chaves[i]).value=valores[i];
+            }
         }
         botaoGravar.disabled=true;
         botaoAtualizar.disabled=false;
@@ -196,6 +208,7 @@ function alterarTelaPut(id){
             atualizarCliente(id);
         });
     });
+    document.getElementById('nome').focus();
 }
 
 
@@ -212,8 +225,8 @@ function atualizarCliente(id){
         const bairro = document.getElementById('bairro').value;
         const cidade = document.getElementById('cidade').value;
         const estado = document.getElementById('estado').value;
-        const contato = document.getElementById('contato').value;
         const email = document.getElementById('email').value;
+        const contato = document.getElementById('contato').value;
         const observacao = document.getElementById('observacao').value;
         const cliente = {
             "nome":nome,
@@ -227,8 +240,8 @@ function atualizarCliente(id){
             "bairro":bairro,
             "cidade":cidade,
             "estado":estado,
-            "contato":contato,
             "email":email,
+            "contato":contato,
             "observacao":observacao
         }
         fetch('http://localhost:3000/clientes/' + id, {
@@ -244,16 +257,19 @@ function atualizarCliente(id){
                 elementoMensagem.innerHTML = "<p>Desculpe, não foi possível atualizar este registro!</p>";
         }
         }).then((retorno) => {
-            if (retorno.status){
-                exibirTabelaClientes();
+            if (retorno.resultado){
+                elementoMensagem.innerHTML="";
                 elementoMensagem="m-3 alert alert-success";
                 elementoMensagem="<p>Registro atualizado com sucesso!</p>";
                 document.getElementById('id').value="";
-                for (const [chave] of cliente){
-                    document.getElementById(chave).value="";
+                for (const chave in cliente){
+                    if (chave != 'pets'){
+                        document.getElementById(chave).value="";
+                    }
                 }
                 botaoAtualizar.disabled=true;
                 botaoGravar.disabled=false;
+                exibirTabelaClientes();
             }
         }).catch((erro) =>{
             elementoMensagem.className="m-3 - alert alert-warning";
@@ -275,17 +291,30 @@ function excluirCliente(id){
             return resposta.json();
         }
         else{
+            elementoMensagem.innerHTML="";
             elementoMensagem.className = "m-3 alert alert-warning";
             elementoMensagem.innerHTML="<p>Não foi possível excluir o cliente!</p>";
         }
     }).then((retorno) => {
-        if (retorno.status){
-            exibirTabelaClientes();
+        if (retorno.resultado){
+            elementoMensagem.innerHTML="";
             elementoMensagem.className = "m-3 alert alert-success";
-            elementoMensagem.innerHTML="<p> "+ retorno.status + "- Registro apagado com sucesso!</p>";
+            elementoMensagem.innerHTML="<p> Registro excluído com sucesso!</p>";
+            exibirTabelaClientes();
         }
     }).catch((erro) => {
+        elementoMensagem.innerHTML="";
         elementoMensagem.className="m-3 alert alert-warning";
         elementoMensagem.innerHTML="<p>Não foi possível enviar a requisição de exclusão para o servidor!</p>";
     });
+
+    limparMensagem();
+}
+
+
+function limparMensagem(){  //limpar mensagem de alerta da tela
+    setTimeout(function() {
+        elementoMensagem.className="";
+        elementoMensagem.innerHTML="";
+    },3000);
 }

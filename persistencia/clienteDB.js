@@ -1,6 +1,6 @@
 import {MongoClient, ObjectId} from 'mongodb';
 import Cliente from '../modelo/cliente.js';
-//import Pet from '../modelo/pet.js';
+import Pet from '../modelo/pets.js';
 const urlBancoDados = "mongodb://localhost:27017";
 const baseDados = "VetCare";
 const colecao = "Clientes";

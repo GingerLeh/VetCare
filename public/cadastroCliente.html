@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -17,8 +18,7 @@
                 </div>
                 <div class="col-4">
                     <label for="nome">Nome completo:</label>
-                    <input class="form-control" type="text" name="nome" id="nome"
-                     placeholder="Digite o seu nome..." required>    
+                    <input class="form-control" type="text" name="nome" id="nome" placeholder="Digite o seu nome..." required>    
                 </div>
                 <div class="col-2">
                     <label for="rg">RG:</label>
@@ -89,26 +89,31 @@
                     <button type="submit" class="btn btn-success" id="botaoGravar">Gravar</button>
                     <button type="button" class="btn btn-info" id="botaoAtualizar" disabled>Atualizar</button>
                     <button type="reset" class="btn btn-warning" id="botaoCancelar">Cancelar</button>
+                    <a href="paginaPrincipal.html">
+                        <button type="button" class="btn btn-secondary" id="botaoCancelar">Voltar</button>
+                    </a>
                 </div>
                 <br>
             </div>
+            <br>
             <div data-Mensagem>
 
             </div>    
-            <div data-Tabela>
-
-            </div>
         </form>
+        <div data-Tabela>
+
+        </div>
+
         <footer>
             <div class="card text-center">
                 <div class="card-header"></div>
                 <div class="card-body">
-                    <h5 class="card-title">VetCare - Clínica Veterinária</h5>
-                    <p class="card-text">Vision Softwares - (Projeto do Curso EAD Análise e Desenvolvimento de Sistemas - UNOESTE)</p>
+                    <h5 class="card-title">VetCare Clínica Veterinária</h5>
+                    <p class="card-text">Vision Softwares &copy;2022 - (Curso EAD Análise e Desenvolvimento de Sistemas - UNOESTE)</p>
                 </div>
                 <div class="card-footer text-muted"></div>
             </div>
-        </footer>        
+        </footer>          
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
