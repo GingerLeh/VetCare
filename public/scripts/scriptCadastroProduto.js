@@ -1,11 +1,17 @@
 var elementoMensagem = document.querySelector('[data-Mensagem]');
-var botaoAdicionar = document.getElementById("botaoAdicionar");
-var botaoAlterar = document.getElementById("botaoAlterar");
+var botaoGravar = document.getElementById('botaoGravar');
+var botaoAtualizar = document.getElementById('botaoAtualizar');
+var botaoCancelar = document.getElementById('botaoCancelar');
 
+//Controle ddo botão cancelar.
+botaoCancelar.addEventListener('click', ()=>{
+    botaoAtualizar.disabled=true;
+    botaoGravar.disabled=false;
+});
 
-botaoAdicionar.onclick = adicionarProduto;
 exibirTabelaProdutos();
 
+botaoGravar.onclick = adicionarProduto;
 
 function dadosValidos() {
     const descricao = document.getElementById("descricao").value;
@@ -91,6 +97,7 @@ function exibirTabelaProdutos() {
                                     <th>Custo Unitário</th>\
                                     <th>Margem de Lucro</th>\
                                     <th>Venda Controlada</th>\
+                                    <th>Ações</th>\
                                     </tr>"
             tabela.appendChild(cabecalho);
             let corpo = document.createElement('tbody');
@@ -111,7 +118,7 @@ function exibirTabelaProdutos() {
                                 <path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>\
                             </svg>\
                         </button>\
-                        <button id='botaoAlterar' type='button' class='btn btn-warning' onclick='alterarProduto(\"" + produto.id + "\")'>\
+                        <button id='botaoAlterar' type='button' class='btn btn-warning' id='editar' onclick='alterarTelaPut(\"" + produto.id + "\")'>\
                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'> \
                                 <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>\
                             </svg>\
@@ -146,3 +153,81 @@ function excluirProduto(id) {
     });
 }
 
+function alterarTelaPut(id){
+    fetch('http://localhost:3000/produtos/' + id, {
+        method:"GET"
+    }).then((resposta) => {
+        if (resposta.ok){
+            return resposta.json();
+        }
+        else{
+            elementoMensagem.className = "m-3 alert alert-warning";
+            elementoMensagem.innerHTML="<p>Registro não encontrado!</p>";
+        }
+    }).then((produto) => {
+        const chaves = Object.keys(produto);
+        const valores = Object.values(produto);
+        for (let i = 0; i < chaves.length; i++) {
+            document.getElementById(chaves[i]).value=valores[i];
+        }
+        botaoGravar.disabled=true;
+        botaoAtualizar.disabled=false;
+        botaoAtualizar.addEventListener("click", ()=> {
+            atualizarProduto(id);
+        });
+    });
+    document.getElementById('descricao').focus();
+}
+
+
+function atualizarProduto(id){
+    if (dadosValidos()){
+        const descricao = document.getElementById("descricao").value;
+        const categoria = document.getElementById("categoria").value;
+        const dataValidade = document.getElementById("dataValidade").value;
+        const custoUnitario = document.getElementById("custoUnitario").value;
+        const margemLucro = document.getElementById("margemLucro").value;
+        const vendaControlada = document.getElementById("vendaControlada").value;
+        const produto = {
+            "descricao": descricao,
+            "categoria": categoria,
+            "dataValidade": dataValidade,
+            "custoUnitario": custoUnitario,
+            "margemLucro": margemLucro,
+            "vendaControlada": vendaControlada
+        }
+        fetch('http://localhost:3000/produtos/' + id, {
+            method:"PUT",
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify(produto)
+        }).then((resposta) => {
+            if (resposta.ok){
+                return resposta.json();
+            }
+            else{
+                elementoMensagem.className = "m-3 alert alert-warning";
+                elementoMensagem.innerHTML = "<p>Desculpe, não foi possível atualizar este registro!</p>";
+        }
+        }).then((retorno) => {
+            if (retorno.resultado){
+                elementoMensagem.innerHTML="";
+                elementoMensagem="m-3 alert alert-success";
+                elementoMensagem="<p>Registro atualizado com sucesso!</p>";
+                document.getElementById('id').value="";
+                for (const chave in produto){
+                    document.getElementById(chave).value="";
+                }
+                botaoAtualizar.disabled=true;
+                botaoGravar.disabled=false;
+                exibirTabelaProdutos();
+            }
+        }).catch((erro) =>{
+            elementoMensagem.className="m-3 - alert alert-warning";
+            elementoMensagem.innerHTML="<p>Não foi possivel processar esta requisição no servidor! </br>" + erro + " </p>";
+        });
+    }    
+    else {
+        elementoMensagem.className="btn btn-warning";
+        elementoMensagem.innerHTML="<p>Dados inválidos!</p>";
+    }
+}

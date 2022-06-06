@@ -14,12 +14,12 @@ export default class Cliente{
     #bairro;
     #cidade;
     #estado;
-    #contato;
     #email;
+    #contato;
     #observacao;
     #pets;
 
-    constructor(id, nome, rg, cpf, dtNasc, cep, endereco, numero, complemento, bairro, cidade, estado, contato, email, observacao, pets){
+    constructor(id, nome, rg, cpf, dtNasc, cep, endereco, numero, complemento, bairro, cidade, estado, email, contato, observacao, pets){
         this.#id = id;
         this.#nome = nome;
         this.#rg = rg;
@@ -32,8 +32,8 @@ export default class Cliente{
         this.#bairro = bairro;
         this.#cidade = cidade;
         this.#estado = estado;
-        this.#contato = contato;
         this.#email = email;
+        this.#contato = contato;
         this.#observacao = observacao;
         this.#pets = pets;
     }
@@ -79,6 +79,14 @@ export default class Cliente{
         this.#dtNasc = novaDtNasc;
     }
 
+    get cep (){
+        return this.#cep;
+    }
+
+    set cep (novoCep){
+        this.#cep = novoCep;
+    }
+
     get endereco(){
         return this.#endereco;
     }
@@ -111,14 +119,6 @@ export default class Cliente{
         this.#bairro = novoBairro;
     }
 
-    get cep(){
-        return this.#cep;
-    }
-
-    set cep(novoCep){
-        this.#cep = novoCep;
-    }
-
     get cidade(){
         return this.#cidade;
     }
@@ -139,16 +139,20 @@ export default class Cliente{
         return this.#contato;
     }
 
-    set contato(novoContato){
-        this.#contato = novoContato;
-    }
-
     get email(){
         return this.#email;
     }
 
     set email(novoEmail){
         this.#email = novoEmail;
+    }
+
+    get contato (){
+        return this.#contato;
+    }
+
+    set contato(novoContato){
+        this.#contato = novoContato;
     }
 
     get observacao(){
@@ -181,10 +185,10 @@ export default class Cliente{
             "bairro" : this.#bairro,
             "cidade" : this.#cidade,
             "estado" : this.#estado,
-            "contato": this.#contato,
             "email": this.#email,
+            "contato": this.#contato,
             "observacao": this.observacao,
-            "pets": this.#pets.map((pet) => {return pet.toJSON()})
+            "pets": this.#pets.map((pet) => {return {"nome":pet.nome}})
         }
     }
 }

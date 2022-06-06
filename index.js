@@ -24,7 +24,7 @@ app.use('/pets', rotaPet);
 //Rota Produtos - Flavia
 app.use('/produtos', rotaProduto);
 //Rota Funcionarios - Alessa
-app.use('/funcionarios',rotaFuncionario);
+app.use('/funcionarios', rotaFuncionario);
 //Rota Clientes - Junior
 app.use('/clientes', rotaCliente);
 
